@@ -15,27 +15,32 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
-  final _myBox=Hive.box('mybox');
-  ToDoDatabase db=ToDoDatabase();
+  final _myBox = Hive.box('mybox');
+  ToDoDatabase db = ToDoDatabase();
+
   @override
   void initState() {
-    db.loadDatabase();
+    if (_myBox.get('TODOLIST') == null) {
+      db.crateInitialDatabase();
+    } else {
+      db.loadDatabase();
+    }
     // TODO: implement initState
     super.initState();
   }
-  final _controller = TextEditingController();
 
+  final _controller = TextEditingController();
 
   void checkBoxTapped(bool? value, int index) {
     setState(() {
-      db.toDoList![index][1] = !db.toDoList![index][1];
+      db.toDoList[index][1] = !db.toDoList[index][1];
     });
     db.updateDatabase();
   }
 
   void saveNewTask() {
     setState(() {
-     db.toDoList!.add([_controller.text, false]);
+      db.toDoList.add([_controller.text, false]);
     });
     Navigator.pop(context);
     _controller.clear();
@@ -58,15 +63,16 @@ class _ToDoListState extends State<ToDoList> {
 
   void delete(int index) {
     setState(() {
-      db.toDoList!.removeAt(index);
+      db.toDoList.removeAt(index);
     });
     db.updateDatabase();
   }
 
   void clearAll() {
     setState(() {
-     db.toDoList!.clear();
+      db.toDoList.clear();
     });
+    db.updateDatabase();
   }
 
   @override
@@ -108,23 +114,25 @@ class _ToDoListState extends State<ToDoList> {
         ),
       ),
       body: Padding(
-        padding:  const EdgeInsets.all(20),
-        child: db.toDoList!.isEmpty?const Center(
-          child:  Image(
-            image: AssetImage('assets/images/zzz.png'),
-          ),
-        ):ListView.builder(
-            itemCount:db.toDoList!.isEmpty?0: db.toDoList!.length,
-            itemBuilder: (context, index) {
-              return ToDoListTile(
-                taskName: db.toDoList!.isEmpty?null:db.toDoList![index][0],
-                done: db.toDoList!.isEmpty?false:db.toDoList![index][1],
-                onChanged: (value) {
-                  checkBoxTapped(value, index);
-                },
-                deleteFunction: (BuildContext) => delete(index),
-              );
-            }),
+        padding: const EdgeInsets.all(20),
+        child: db.toDoList.isEmpty
+            ? const Center(
+                child: Image(
+                  image: AssetImage('assets/images/zzz.png'),
+                ),
+              )
+            : ListView.builder(
+                itemCount: db.toDoList.length,
+                itemBuilder: (context, index) {
+                  return ToDoListTile(
+                    taskName: db.toDoList[index][0],
+                    done: db.toDoList[index][1],
+                    onChanged: (value) {
+                      checkBoxTapped(value, index);
+                    },
+                    deleteFunction: (BuildContext) => delete(index),
+                  );
+                }),
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.purple.shade300,

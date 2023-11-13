@@ -12,27 +12,24 @@ class ToDoListTile extends StatelessWidget {
       required this.taskName,
       required this.done,
       required this.onChanged,
-      required this.deleteFunction
-      });
+      required this.deleteFunction});
 
   @override
   Widget build(BuildContext context) {
     return Slidable(
-      endActionPane:
-          ActionPane(motion: const StretchMotion(),
-           children: [
-             SlidableAction(
-               borderRadius:const BorderRadius.only(
-                 topLeft: Radius.circular(20),
-                 bottomLeft: Radius.circular(20),
-               ),
-               onPressed: deleteFunction,
-             icon: Icons.delete,
-               backgroundColor: Colors.red,
-             )
-           ]),
+      endActionPane: ActionPane(motion: const StretchMotion(), children: [
+        SlidableAction(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+          ),
+          onPressed: deleteFunction,
+          icon: Icons.delete,
+          backgroundColor: Colors.red,
+        )
+      ]),
       child: Container(
-        margin: const EdgeInsets.only(bottom: 15,top: 15),
+        margin: const EdgeInsets.only(bottom: 15, top: 15),
         height: 90,
         width: double.infinity,
         decoration: BoxDecoration(
@@ -45,14 +42,20 @@ class ToDoListTile extends StatelessWidget {
               value: done,
               onChanged: onChanged,
             ),
-            title: Text(
-              taskName,
-              style: TextStyle(
-                color: done ? Colors.red : Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                decoration:
-                    done ? TextDecoration.lineThrough : TextDecoration.none,
+            title: Flexible(
+              fit: FlexFit.loose,
+              flex: 2,
+              child: Text(
+                taskName,
+                style: TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  color: done ? Colors.red : Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  decoration:
+                      done ? TextDecoration.lineThrough : TextDecoration.none,
+                ),
+                maxLines: 2,
               ),
             ),
           ),
