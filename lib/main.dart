@@ -1,9 +1,14 @@
-import 'package:daily_acticvites/pages/expense.dart';
-import 'package:daily_acticvites/pages/home_page.dart';
-import 'package:daily_acticvites/pages/todo_list.dart';
-import 'package:flutter/material.dart';
 
-void main() {
+import 'package:daily_acticvites/todo/pages/todo_page.dart';
+import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+import 'expense/pages/expense_home_page.dart';
+import 'home_page.dart';
+
+void main() async{
+  await Hive.initFlutter();
+  var box=await Hive.openBox('mybox');
   runApp(const MyApp());
 }
 
