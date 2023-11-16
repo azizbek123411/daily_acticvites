@@ -13,7 +13,7 @@ class _ExpenseState extends State<Expense> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.pinkAccent,
+      backgroundColor: Colors.pink,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -33,8 +33,8 @@ class _ExpenseState extends State<Expense> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        centerTitle: true,
       ),
+
     );
   }
 }

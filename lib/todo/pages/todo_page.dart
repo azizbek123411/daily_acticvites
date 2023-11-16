@@ -103,7 +103,6 @@ class _ToDoListState extends State<ToDoList> {
           ),
         ],
         backgroundColor: Colors.purple.shade400,
-        centerTitle: true,
         title: const Text(
           'To Do List',
           style: TextStyle(

@@ -5,8 +5,10 @@ class NewTask extends StatelessWidget {
   final controller;
   VoidCallback onSave;
   VoidCallback onCancel;
-   NewTask({super.key,
-  required this.controller,
+
+  NewTask({
+    super.key,
+    required this.controller,
     required this.onSave,
     required this.onCancel,
   });
@@ -27,10 +29,10 @@ class NewTask extends StatelessWidget {
                 color: Colors.purple.shade300,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child:  Center(
+              child: Center(
                 child: TextField(
                   controller: controller,
-                  style:const TextStyle(color: Colors.white),
+                  style: const TextStyle(color: Colors.white),
                   decoration: const InputDecoration(
                     contentPadding: EdgeInsets.all(8),
                     hintText: 'Enter new task',

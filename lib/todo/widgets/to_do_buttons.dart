@@ -12,7 +12,7 @@ class ToDoButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           title,
-          style:const  TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.w500,
             fontSize: 18,
