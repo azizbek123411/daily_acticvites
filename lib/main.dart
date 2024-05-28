@@ -1,6 +1,8 @@
+import 'package:daily_acticvites/expense/data/expense_data.dart';
 import 'package:daily_acticvites/todo/pages/todo_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'expense/pages/expense_home_page.dart';
 import 'home_page.dart';
@@ -16,19 +18,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (context) => ExpenseData(),
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const HomePage(),
+        routes: {
+          HomePage.id: (context) => const HomePage(),
+          ToDoList.id: (context) => const ToDoList(),
+          Expense.id: (context) => const Expense(),
+        },
       ),
-      home: const HomePage(),
-      routes: {
-        HomePage.id: (context) => const HomePage(),
-        ToDoList.id: (context) => const ToDoList(),
-        Expense.id: (context) => const Expense(),
-      },
     );
   }
 }
