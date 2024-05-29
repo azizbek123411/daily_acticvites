@@ -1,4 +1,6 @@
 import 'package:daily_acticvites/expense/data/expense_data.dart';
+import 'package:daily_acticvites/expense/widgets/expense_list_tile.dart';
+import 'package:daily_acticvites/expense/widgets/expense_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -129,29 +131,20 @@ class _ExpenseState extends State<Expense> {
             color: Colors.white,
           ),
         ),
-        body: ListView.builder(
-          itemCount: value.getAllExpense().length,
-          itemBuilder: (context, index) => ListTile(
-            subtitle: Text(
-              value.getAllExpense()[index].dateTime.toString(),
-              style: TextStyle(color: Colors.white54),
-            ),
-            trailing: Text(
-              value.getAllExpense()[index].amount + " sum",
-              style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
-            ),
-            title: Text(
-              value.getAllExpense()[index].name,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
+        body: ListView(children: [
+          ExpenseSummary(
+              startOfWeek:value.getStartWeekName(), ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: value.getAllExpense().length,
+            itemBuilder: (context, index) => ExpenseListTile(
+              name: value.getAllExpense()[index].name,
+              date: value.getAllExpense()[index].dateTime,
+              sum: value.getAllExpense()[index].amount,
             ),
           ),
-        ),
+        ]),
       ),
     );
   }
